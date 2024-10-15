@@ -3,6 +3,14 @@ const express = require("express")
 const bcrypt = require('bcrypt')
 const router = express.Router()
 
+const redirectLogin = (req, res, next) => {
+    if (!req.session.userId ) {
+      res.redirect('./login') // redirect to the login page
+    } else { 
+        next (); // move to the next middleware function
+    } 
+}
+
 router.get('/register', function (req, res, next) {
     res.render('register.ejs')
                                                                      
@@ -30,7 +38,7 @@ router.post('/registered', function (req, res, next) {
 
 })
 
-router.get('/list', function(req, res, next) {
+router.get('/list', redirectLogin, function(req, res, next) {
     let sqlquery = "SELECT username FROM users" // query database to get all the books
     // execute sql query
     db.query(sqlquery, (err, result) => {
@@ -47,7 +55,9 @@ router.get('/login', function (req, res, next) {
 })    
 
 router.post('/loggedin', function (req, res, next) {
+
     let sqlquery = "SELECT password FROM users WHERE username=?;"
+
     db.query(sqlquery, req.body.username , (err, result) => {
         console.log(result)
         if (err) {
@@ -81,7 +91,8 @@ router.post('/loggedin', function (req, res, next) {
         }
 
     })
-
+    // Save user session here, when login is successful
+    req.session.userId = req.body.username;
 })
 
 // Export the router object so index.js can access it
