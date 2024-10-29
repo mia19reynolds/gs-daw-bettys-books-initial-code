@@ -4,6 +4,7 @@ var ejs = require('ejs');
 var session = require('express-session');
 var validator = require ('express-validator');
 const expressSanitizer = require('express-sanitizer');
+const request = require('request')
 
 //Import mysql module
 var mysql = require('mysql2')
@@ -64,6 +65,9 @@ app.use('/users', usersRoutes)
 // Load the route handlers for /books
 const booksRoutes = require('./routes/books')
 app.use('/books', booksRoutes)
+
+const weatherRouter = require("./routes/weather");
+app.use("/weather", weatherRouter);
 
 // Start the web app listening
 app.listen(port, () => console.log(`Node app listening on port ${port}!`))

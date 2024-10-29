@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Search</title>
+</head>
+<body>
+  <h1>Check the Weather</h1>
+  <form action="/weather" method="POST">
+    <label for="city">Enter City Name:</label>
+    <input type="text" id="city" name="city" required>
+    <button type="submit">Get Weather</button>
+  </form>
+
+  <% if (weather) { %>
+    <h2>Weather for <%= weather.name %>:</h2>
+    <p><strong>Temperature:</strong> <%= weather.main.temp %>°C</p>
+    <p><strong>Weather:</strong> <%= weather.weather[0].description %></p>
+    <p><strong>Wind Speed:</strong> <%= weather.wind.speed %> m/s</p>
+    <p><strong>Humidity:</strong> <%= weather.main.humidity %> %</p>
+    <p><strong>Pressure:</strong> <%= weather.main.pressure %> hPa</p>
+    <p><strong>Feels Like:</strong> <%= weather.main.feels_like %>°C</p>
+    <p><strong>Min Temperature:</strong> <%= weather.main.temp_min %>°C</p>
+    <p><strong>Max Temperature:</strong> <%= weather.main.temp_max %>°C</p>
+  <% } %>
+</body>
+</html>
