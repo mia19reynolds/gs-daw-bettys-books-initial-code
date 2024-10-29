@@ -1,7 +1,9 @@
 // Import express and ejs
-var express = require ('express')
-var ejs = require('ejs')
-var session = require('express-session')
+var express = require ('express');
+var ejs = require('ejs');
+var session = require('express-session');
+var validator = require ('express-validator');
+const expressSanitizer = require('express-sanitizer');
 
 //Import mysql module
 var mysql = require('mysql2')
@@ -48,6 +50,8 @@ global.db = db
 
 // Define our application-specific data
 app.locals.shopData = {shopName: "Bettys Books"}
+
+app.use(expressSanitizer());
 
 // Load the route handlers
 const mainRoutes = require("./routes/main")

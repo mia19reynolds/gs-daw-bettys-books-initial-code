@@ -6,6 +6,11 @@
   </head>
   <body>
     <h1>Register for <%=shopData.shopName%></h1>
+
+    <% if (error) { %>
+      <p style="color: red;"><%= error %></p>
+    <% } %>
+
     <form method="POST" action="registered">
         <p>First name: <input id="first" type="text" name="first" /></p>
         <p>Last name: <input id="last" type="text" name="last"/></p>
